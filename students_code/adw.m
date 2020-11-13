@@ -1,36 +1,3 @@
-space_sampling = workspace_trajectory();
-
-y = end_effector_position(space_sampling);
-
-scatter3( y(:, 1), y(:, 2), y(:, 3), '*');
-xlabel('x'); 
-ylabel('y');  
-zlabel('z');       
-
-function y = end_effector_position(q)
-    % From the expressions of your final transformamtion matrix
-
-    l1 = 0.0398; l2 = 0.0224; l3 = 0.0158; 
-    q1 = q(:, 1); q2 = q(:, 2); q3 = q(:, 3); q4 = q(:, 4); 
-
-    xe = l1.*cos(q1).*cos(q2) + l3.*cos(q4).*(cos(q1).*cos(q2).*cos(q3) - ...
-        cos(q1).*sin(q2).*sin(q3)) - l3.*sin(q4).*(cos(q1).*cos(q2).*sin(q3) + ...
-        cos(q1).*cos(q3).*sin(q2)) + l2.*cos(q1).*cos(q2).*cos(q3) - ...
-        l2.*cos(q1).*sin(q2).*sin(q3);
-    
-    ye = l1.*cos(q2).*sin(q1) - l3.*sin(q4).*(cos(q2).*sin(q1).*sin(q3) + ...
-        cos(q3).*sin(q1).*sin(q2)) - l3.*cos(q4).*(sin(q1).*sin(q2).*sin(q3) - ...
-        cos(q2).*cos(q3).*sin(q1)) + l2.*cos(q2).*cos(q3).*sin(q1) - ...
-        l2.*sin(q1).*sin(q2).*sin(q3);
-
-    ze = - l1.*sin(q2) - l3.*cos(q4).*(cos(q2).*sin(q3) + cos(q3).*sin(q2)) - ...
-        l3.*sin(q4).*(cos(q2).*cos(q3) - sin(q2).*sin(q3)) - ...
-        l2.*cos(q2).*sin(q3) - l2.*cos(q3).*sin(q2);
-
-    y = [xe, ye, ze];
-end
-
-
 
 function y = workspace_trajectory()
 

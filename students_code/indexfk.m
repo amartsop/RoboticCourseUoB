@@ -39,6 +39,7 @@ q4 = linspace(q4_min, q4_max, steps)';
 %workspace using for loops
 
 %!! coord_store = zeros(???) what size?
+groups = 4;
 total_length = steps ^ groups + 1;
 coord_store = zeros(total_length, 3);
 
@@ -50,15 +51,19 @@ for i = 1:length(q1)
             for m=1:length(q4)
                     count = count + 1;
                     xe = l1*cos(q1(i))*cos(q2(j)) + l3*cos(q4(m))*(cos(q1(i))*cos(q2(j))*cos(q3(k)) - cos(q1(i))*sin(q2(j))*sin(q3(k))) - l3*sin(q4(m))*(cos(q1(i))*cos(q2(j))*sin(q3(k)) + cos(q1(i))*cos(q3(k))*sin(q2(j))) + l2*cos(q1(i))*cos(q2(j))*cos(q3(k)) - l2*cos(q1(i))*sin(q2(j))*sin(q3(k));
-                    ye = 0;
-                    ze = 0;
-
-                    % ye = l1*cos(q2(j))*sin(q1(i)) - l3*sin(q4(m))*(cos(q2(j))*sin(q1(i))*sin(q3(k)) + cos(q3(k))*sin(q1(i))*sin(q2(j))) - l3*cos(q4(m))*(sin(q1(i))*sin(q2(j))*sin(q3(k)) - cos(q2(j))*cos(q3(k))*sin(q1(i))) + l2*cos(q2(j))*cos(q3(k))*sin(q1(i)) - l2*sin(q1(i))*sin(q2(j))*sin(q3(k));
-                    % ze = - l1*sin(q2(j)) - l3*cos(q4(m))*(cos(q2(j))*sin(q3(k)) + cos(q3(k))*sin(q2(j))) - l3*sin(q4(m))*(cos(q2(j))*cos(q3(k)) - sin(q2(j))*sin(q3(k)) - l2*cos(q2(j))*sin(q3(k)) - l2*cos(q3(k))*sin(q2(j));
+                    ye = l1*cos(q2(j))*sin(q1(i)) - l3*sin(q4(m))*(cos(q2(j))*sin(q1(i))*sin(q3(k)) + cos(q3(k))*sin(q1(i))*sin(q2(j))) - l3*cos(q4(m))*(sin(q1(i))*sin(q2(j))*sin(q3(k)) - cos(q2(j))*cos(q3(k))*sin(q1(i))) + l2*cos(q2(j))*cos(q3(k))*sin(q1(i)) - l2*sin(q1(i))*sin(q2(j))*sin(q3(k));
+                    ze = - l1*sin(q2(j)) - l3*cos(q4(m))*(cos(q2(j))*sin(q3(k)) + cos(q3(k))*sin(q2(j))) - l3*sin(q4(m))*(cos(q2(j))*cos(q3(k)) - sin(q2(j))*sin(q3(k))) - l2*cos(q2(j))*sin(q3(k)) - l2*cos(q3(k))*sin(q2(j));
                     y = [xe, ye, ze];
-                    coord_store(count, :)=y;
+                    coord_store(count, :) = y;
                     count = count + 1;
             end
         end
     end
 end
+
+figure;
+scatter3( coord_store(:, 1), coord_store(:, 2), coord_store(:, 3), '*');
+xlabel('x'); 
+ylabel('y');  
+zlabel('z');       
+
