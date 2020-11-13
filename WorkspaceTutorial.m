@@ -44,7 +44,7 @@ function y = workspace_trajectory()
     steps = 20;         
 
     % q is a 5 dimensional array in the case of the thumb model
-    dimensions = 5; groups = dimensions - 1;
+    dimensions = 5; groups = dimensions;
 
 
     % Define the range of your joint angles thetai_min and thetai_max here.
