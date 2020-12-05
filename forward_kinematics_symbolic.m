@@ -40,6 +40,23 @@ yt = simplify(T04(2, end));
 zt = simplify(T04(3, end));
 
 
+rot_f4_f0 = T04(1: 3, 1: 3);
+
+
+% Frame 3 transformation
+T03 = T01 * T12 * T23;
+
+xt3 = simplify(T03(1, end));
+yt3 = simplify(T03(2, end));
+zt3 = simplify(T03(3, end));
+
+df3_f0 = [xt3, yt3, zt3]';
+
+a = df3_f0 + rot_f4_f0 * l3 * [1, 0, 0]';
+ax = simplify(a(1));
+ay = simplify(a(2));
+az = simplify(a(3));
+
 
 
 function A = transformation_mat(dh_params)
